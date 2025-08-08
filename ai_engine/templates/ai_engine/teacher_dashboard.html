@@ -1,0 +1,45 @@
+{% extends 'content/base.html' %}
+{% block content %}
+
+<div class="space-y-6">
+  <h2 class="text-2xl font-semibold text-gray-800 border-b pb-2">👨‍🏫 Teacher Dashboard</h2>
+
+  <a href="{% url 'student_list' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    View All Students
+  </a>
+
+  <div class="mt-6">
+    <h3 class="text-xl font-semibold text-gray-700">🕒 Pending Resources</h3>
+    <ul class="mt-3 space-y-3">
+      {% for resource in pending_resources %}
+        <li class="bg-gray-100 p-4 rounded shadow-sm flex flex-col md:flex-row md:items-center justify-between">
+          <div>
+            <strong class="text-gray-800">{{ resource.title }}</strong> —
+            <a href="{{ resource.file.url }}" class="text-blue-600 hover:underline">Download</a>
+          </div>
+          <form action="{% url 'approve_resource' resource.id %}" method="post" class="mt-2 md:mt-0">
+            {% csrf_token %}
+            <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+              Approve
+            </button>
+          </form>
+        </li>
+      {% empty %}
+        <li class="text-gray-600">No pending resources</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="mt-6">
+    <h3 class="text-xl font-semibold text-gray-700">📄 Your Uploaded Notes</h3>
+    <ul class="mt-3 list-disc list-inside text-gray-700">
+      {% for note in my_notes %}
+        <li><strong>{{ note.subject }} - {{ note.topic }}</strong></li>
+      {% empty %}
+        <li class="text-gray-600">You have not uploaded any notes yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

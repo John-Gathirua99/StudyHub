@@ -1,0 +1,185 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Lessons{% endblock %}
+
+{% block content %}
+<style>
+    .lesson-container {
+        max-width: 1000px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .sidebar {
+        flex: 0 0 200px;
+        background-color: #f4f4f4;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h3 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .sidebar ul li a {
+        color: #2c3e50;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    .sidebar ul li a:hover {
+        text-decoration: underline;
+    }
+
+    .main-content {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .main-content h2 {
+        margin-bottom: 1.5rem;
+    }
+
+    .filter-form {
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .filter-form input,
+    .filter-form select {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        min-width: 150px;
+    }
+
+    .filter-form button {
+        padding: 0.5rem 1rem;
+        background-color: #2c3e50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .lesson-card {
+        margin-bottom: 1.5rem;
+        background-color: #fff;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .lesson-card h3 {
+        margin-bottom: 0.5rem;
+    }
+
+    .lesson-card a {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+
+    .lesson-card a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .lesson-container {
+            flex-direction: column;
+        }
+
+        .sidebar {
+            width: 100%;
+        }
+
+        .filter-form {
+            flex-direction: column;
+        }
+
+        .filter-form input,
+        .filter-form select,
+        .filter-form button {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="lesson-container">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <h3>Topics</h3>
+        <ul>
+            <li><a href="{% url 'lesson-list' %}">All Topics</a></li>
+            {% for topic in topics %}
+                <li><a href="{% url 'lesson-list' %}?q={{ topic }}">{{ topic }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2>Available Lessons</h2>
+
+        <!-- 🔍 Search/Filter Form -->
+        <form method="get" class="filter-form">
+            <input type="text" name="q" placeholder="Search by topic..." value="{{ request.GET.q }}">
+            
+            <select name="difficulty">
+                <option value="">All Levels</option>
+                <option value="Beginner" {% if request.GET.difficulty == "Beginner" %}selected{% endif %}>Beginner</option>
+                <option value="Intermediate" {% if request.GET.difficulty == "Intermediate" %}selected{% endif %}>Intermediate</option>
+                <option value="Advanced" {% if request.GET.difficulty == "Advanced" %}selected{% endif %}>Advanced</option>
+            </select>
+
+            <button type="submit">Filter</button>
+        </form>
+
+        {% if lessons %}
+            <ul style="list-style: none; padding: 0;">
+                {% for lesson in lessons %}
+                    <li class="lesson-card">
+                        <h3>
+                            <a href="{% url 'lesson-detail' lesson.id %}" style="color: red; background-color: aqua; border-radius: 10%; margin: 2px;">
+                                {{ lesson.title }}
+                            </a>
+                        </h3>
+                        <p><strong>Topic:</strong> {{ lesson.topic }}</p>
+                        <p>
+                            <strong>Difficulty:</strong>
+                            {% if lesson.difficulty_level == "Beginner" %}
+                                <span style="color: green;">🟢 Beginner</span>
+                            {% elif lesson.difficulty_level == "Intermediate" %}
+                                <span style="color: orange;">🟠 Intermediate</span>
+                            {% elif lesson.difficulty_level == "Advanced" %}
+                                <span style="color: red;">🔴 Advanced</span>
+                            {% else %}
+                                {{ lesson.difficulty_level }}
+                            {% endif %}
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No lessons found for your filter criteria.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

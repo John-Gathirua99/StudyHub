@@ -1,0 +1,73 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Quiz Score Progress{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">📈 Your Quiz Score Progress</h2>
+
+    {% if score_values and dates %}
+    <canvas id="scoreChart" width="100%" height="400"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('scoreChart').getContext('2d');
+      const chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: {{ dates|safe }},
+              datasets: [{
+                  label: 'Score',
+                  data: {{ score_values|safe }},
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 2,
+                  pointBackgroundColor: 'rgba(0, 123, 255, 1)',
+                  pointRadius: 5,
+                  tension: 0.3
+              }]
+          },
+          options: {
+              responsive: true,
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      title: {
+                          display: true,
+                          text: 'Score'
+                      }
+                  },
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Date'
+                      }
+                  }
+              },
+              plugins: {
+                  title: {
+                      display: true,
+                      text: 'Quiz Score Over Time',
+                      font: {
+                          size: 18
+                      }
+                  },
+                  tooltip: {
+                      mode: 'index',
+                      intersect: false,
+                  }
+              },
+              interaction: {
+                  mode: 'nearest',
+                  axis: 'x',
+                  intersect: false
+              }
+          }
+      });
+    </script>
+    {% else %}
+    <div class="alert alert-info">No quiz data available yet. Take a quiz to start tracking your progress!</div>
+    <a href="{%url 'lesson-list'%}">Take Quiz</a>
+    {% endif %}
+</div>
+{% endblock %}

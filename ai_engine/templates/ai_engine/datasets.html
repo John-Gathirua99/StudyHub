@@ -1,0 +1,13 @@
+<h2>Available Datasets</h2>
+<ul>
+  {% for dataset in datasets %}
+    <li>
+      <strong>{{ dataset.title }}</strong><br>
+      {{ dataset.description }}<br>
+      <a href="{{ dataset.file.url }}">Download</a>
+      {% if dataset.source_url %}
+        | <a href="{{ dataset.source_url }}" target="_blank">Kaggle Source</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

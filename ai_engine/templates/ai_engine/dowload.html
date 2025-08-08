@@ -1,0 +1,6 @@
+{% for dataset in datasets %}
+  <li>
+    {{ dataset.title }} - <a href="{{ dataset.file.url }}">Download</a>
+    {% if dataset.source_url %} | <a href="{{ dataset.source_url }}" target="_blank">Source</a>{% endif %}
+  </li>
+{% endfor %}

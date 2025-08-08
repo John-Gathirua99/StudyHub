@@ -1,0 +1,46 @@
+<div id="chatbox">
+    <div id="chat-log"></div>
+    <input type="text" id="chat-input" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+</div> 
+
+<script>
+    function sendMessage() {
+        const input = document.getElementById("chat-input");
+        const message = input.value;
+        if (!message) return;
+
+        const log = document.getElementById("chat-log");
+        log.innerHTML += `<div><b>You:</b> ${message}</div>`;
+
+        fetch('/chatbot/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCookie('csrftoken') // important for Django
+            },
+            body: `message=${encodeURIComponent(message)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            log.innerHTML += `<div><b>Bot:</b> ${data.reply}</div>`;
+            input.value = '';
+        });
+    }
+
+    // CSRF helper for Django
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>

@@ -1,0 +1,96 @@
+{% extends 'content/base.html' %}
+
+{% block content %}
+
+<style>
+  .resource-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  .resource-container h2 {
+    font-size: 28px;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+  }
+
+  .submit-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .submit-link:hover {
+    background-color: #2980b9;
+  }
+
+  .resource-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .resource-list li {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-left: 4px solid #3498db;
+    border-radius: 6px;
+  }
+
+  .resource-list strong {
+    font-size: 16px;
+    color: #2c3e50;
+  }
+
+  .resource-list a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #27ae60;
+    font-weight: bold;
+  }
+
+  .resource-list a:hover {
+    text-decoration: underline;
+  }
+
+  .resource-list em {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #7f8c8d;
+  }
+</style>
+
+<div class="resource-container">
+  <h2>Shared Resources</h2>
+  <a href="{% url 'submit_resource' %}" class="submit-link">Share a Resource</a>
+  
+  <ul class="resource-list">
+    {% for resource in resources %}
+      <li>
+        <strong>{{ resource.title }}</strong>
+        {% if resource.description %}
+          – {{ resource.description }}
+        {% endif %}
+        <a href="{{ resource.file.url }}" target="_blank">Download</a>
+        <em>Shared by: {{ resource.uploaded_by.username }}</em>
+      </li>
+    {% empty %}
+      <li>No resources shared yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div style="max-width: 650px; margin: 2rem auto; font-family: Arial, sans-serif;">
+    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 2rem;">
+        Welcome, {{ user.name }}
+    </h2>
+
+    <div style="
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        color: #34495e;
+    ">
+        <p style="font-size: 1.1rem; margin-bottom: 0.8rem;">
+            <strong>Username:</strong> {{ user.username }}
+        </p>
+        <p style="font-size: 1.1rem; margin-bottom: 0.8rem;">
+            <strong>Email:</strong> {{ user.email }}
+        </p>
+        <p style="font-size: 1.1rem; margin-bottom: 0.8rem;">
+            <strong>Grade Level:</strong> {{ user.grade_level }}
+        </p>
+
+        <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #ddd;">
+
+        <h3 style="margin-bottom: 1rem; color: #2c3e50;">Profile</h3>
+        <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
+        <p><strong>School:</strong> {{ profile.school }}</p>
+        <p><strong>Grade/Level:</strong> {{ profile.grade }}</p>
+        <p><strong>Gender:</strong> {{ profile.get_gender_display }}</p>
+        <p><strong>Date of Birth:</strong> {{ profile.dob }}</p>
+        <p><strong>Address:</strong> {{ profile.address }}</p>
+
+       
+        <button type="button" onclick="window.history.back();" class="back-btn"style="
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.6rem 1.2rem;
+        background-color: #e74c3c;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+   ">
+            &larr; Back
+          </button>
+    </div>
+</div>
+{% endblock %}

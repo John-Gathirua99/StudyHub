@@ -1,0 +1,47 @@
+[
+    {
+        "title": "Introduction to Python",
+        "description": "A beginner's guide to Python programming.",
+        "content_type": "video",
+        "video_url": "https://www.youtube.com/watch?v=abc123",
+        "difficulty_level": "Beginner",
+        "topic": "Programming",
+        "is_published": true
+    },
+    {
+        "title": "Advanced Django Techniques",
+        "description": "Deep dive into Django's advanced features.",
+        "content_type": "file",
+        "file": "educational_content/files/django_advanced.pdf",
+        "difficulty_level": "Advanced",
+        "topic": "Web Development",
+        "is_published": true
+    },
+    {
+        "title": "Data Science with Pandas",
+        "description": "Learn data analysis using Pandas.",
+        "content_type": "photo",
+        "photo": "educational_content/photos/pandas_data_analysis.png",
+        "difficulty_level": "Intermediate",
+        "topic": "Data Science",
+        "is_published": true
+    },
+    {
+        "title": "Machine Learning Basics",
+        "description": "Introduction to machine learning concepts.",
+        "content_type": "video",
+        "video_url": "https://www.youtube.com/watch?v=xyz456",
+        "difficulty_level": "Intermediate",
+        "topic": "Machine Learning",
+        "is_published": true
+    },
+    {
+        "title": "Django REST Framework Guide",
+        "description": "Comprehensive guide to Django REST Framework.",
+        "content_type": "file",
+        "file": "educational_content/files/drf_guide.pdf",
+        "difficulty_level": "Advanced",
+        "topic": "Web Development",
+        "is_published": true
+    }
+]

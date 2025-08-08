@@ -1,0 +1,33 @@
+{% extends "content/base.html" %}
+{% block content %}
+
+<style>
+  .graded-confirmation-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 40px;
+    background-color: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 8px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .graded-confirmation-container h2 {
+    color: #1565c0;
+    margin-bottom: 15px;
+  }
+
+  .graded-confirmation-container p {
+    font-size: 16px;
+    color: #444;
+  }
+</style>
+
+<div class="graded-confirmation-container">
+  <h2>Exam Graded!</h2>
+  <p>The exam has been successfully graded.</p>
+</div>
+
+{% endblock %}

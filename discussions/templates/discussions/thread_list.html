@@ -1,0 +1,77 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Discussion Threads{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-title">Discussion Groups</h1>
+        <ul class="thread-list">
+            {% for thread in threads %}
+                <li class="thread-item">
+                    <a href="{% url 'thread_detail' thread.id %}" class="thread-link">
+                        {{ thread.title }}
+                    </a>
+                    <span class="thread-author">Created by {{ thread.created_by }}</span>
+                </li>
+            {% empty %}
+                <li class="no-threads">No discussion threads available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <style>
+        .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.thread-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.thread-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.thread-link {
+    font-size: 1.2rem;
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.thread-link:hover {
+    text-decoration: underline;
+}
+
+.thread-author {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.no-threads {
+    font-size: 1rem;
+    color: #888;
+    text-align: center;
+}
+
+    </style>
+{% endblock %}

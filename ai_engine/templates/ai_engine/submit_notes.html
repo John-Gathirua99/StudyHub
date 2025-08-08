@@ -1,0 +1,66 @@
+{% extends 'content/base.html' %}
+
+{% block content %}
+
+<style>
+  .note-form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  .note-form-container h2 {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #2c3e50;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+  }
+
+  .note-form-container form p {
+    margin-bottom: 1.2rem;
+  }
+
+  .note-form-container input[type="text"],
+  .note-form-container input[type="file"],
+  .note-form-container textarea,
+  .note-form-container select {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  .note-form-container button {
+    background-color: #3498db;
+    color: white;
+    font-size: 15px;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+  }
+
+  .note-form-container button:hover {
+    background-color: #2980b9;
+  }
+</style>
+
+<div class="note-form-container">
+  <h2>Submit Subject Note</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+{% endblock %}

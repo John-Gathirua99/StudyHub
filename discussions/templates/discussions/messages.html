@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages with {{ other_user.username }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 60%;
+        }
+        .sent {
+            background-color: #d1e7dd;
+            text-align: right;
+            margin-left: auto;
+        }
+        .received {
+            background-color: #f8d7da;
+            text-align: left;
+            margin-right: auto;
+        }
+        .message p {
+            margin: 0;
+        }
+        .message time {
+            display: block;
+            font-size: 0.8em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>Messages with {{ other_user.username }}</h1>
+    <div id="messages">
+        {% for message in messages %}
+            <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+                <p>{{ message.content }}</p>
+                {% if message.media %}
+                    <p><a href="{{ message.media.url }}" target="_blank">View Media</a></p>
+                {% endif %}
+                <time>{{ message.created_at }}</time>
+            </div>
+        {% empty %}
+            <p>No messages to display.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

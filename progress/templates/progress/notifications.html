@@ -1,0 +1,53 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: auto; padding: 20px;">
+    <h2 style="text-align: center; margin-bottom: 2rem;">🔔 Notifications</h2>
+
+    <div style="background-color: #f4f6f7; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+        <ul style="list-style-type: none; padding-left: 0; margin: 0;">
+            {% for notification in notifications %}
+            <li style="background-color: #ffffff; margin-bottom: 16px; padding: 16px; border-radius: 8px; box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);">
+                <p style="margin: 0 0 5px; font-size: 16px; color: #333;">
+                    {{ notification.message }}
+                </p>
+                <small style="color: #888; font-size: 12px;">
+                    {{ notification.created_at|date:"M d, Y H:i" }}
+                </small>
+
+                <!-- Reply Button -->
+                <button onclick="toggleReplyForm({{ notification.id }})"
+                        style="margin-top: 10px; padding: 6px 14px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Reply
+                </button>
+
+                <!-- Hidden Reply Form -->
+                <form id="reply-form-{{ notification.id }}" method="post"
+                      action="{% url 'reply_notification' notification.id %}"
+                      style="display: none; margin-top: 10px;">
+                    {% csrf_token %}
+                    <textarea name="reply_message" rows="2" placeholder="Write your reply..."
+                              style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;" required></textarea>
+                    <button type="submit"
+                            style="margin-top: 6px; padding: 6px 12px; background-color: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Send
+                    </button>
+                </form>
+            </li>
+            {% empty %}
+            <li style="text-align: center; color: #777;">No notifications available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- JavaScript to toggle reply forms -->
+<script>
+    function toggleReplyForm(id) {
+        const form = document.getElementById(`reply-form-${id}`);
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
+{% endblock %}

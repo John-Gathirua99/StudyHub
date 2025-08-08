@@ -1,0 +1,9 @@
+{% extends "content/base.html" %}
+{% block content %}
+  <h2>Send File to {{ receiver.full_name|default:receiver.user.username }} for Exam: {{ exam.title }}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send File</button>
+  </form>
+{% endblock %}

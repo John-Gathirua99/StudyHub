@@ -1,0 +1,19 @@
+<h3>Discussion</h3>
+<ul>
+    {% for discussion in lesson.discussions.all %}
+    <li>
+        <h4>{{ discussion.title }}</h4>
+        <p>Started by {{ discussion.created_by }} on {{ discussion.created_at }}</p>
+        <ul>
+            {% for comment in discussion.comments.all %}
+            <li>{{ comment.content }} - {{ comment.created_by }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post" action="{% url 'add_comment' discussion.id %}">
+            {% csrf_token %}
+            <textarea name="content" placeholder="Add a comment"></textarea>
+            <button type="submit">Post</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>

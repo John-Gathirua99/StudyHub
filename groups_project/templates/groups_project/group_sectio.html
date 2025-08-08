@@ -1,0 +1,24 @@
+<h3>Group Projects</h3>
+<ul>
+    {% for group in user.groups.all %}
+    <li>
+        <h4>{{ group.name }}</h4>
+        <p>Members:</p>
+        <ul>
+            {% for member in group.members.all %}
+            <li>{{ member.username }}</li>
+            {% endfor %}
+        </ul>
+        <h5>Projects:</h5>
+        <ul>
+            {% for project in group.projects.all %}
+            <li>
+                <strong>{{ project.title }}</strong>
+                <p>{{ project.description }}</p>
+                <a href="{{ project.file.url }}" download>Download Submission</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>

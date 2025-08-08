@@ -1,0 +1,94 @@
+{%extends 'content/base.html'%}
+
+{%block content%}
+    <title>Send a Private Message</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea,
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Send a Private Message</h1>
+    <form id="sendMessageForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="recipient">Recipient</label>
+        <select id="recipient" name="recipient" required>
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="content">Message</label>
+        <textarea id="content" name="content" rows="5" placeholder="Write your message here..." required></textarea>
+
+        <label for="media">Attach Media (optional)</label>
+        <input type="file" id="media" name="media" accept="image/*,video/*">
+
+        <button type="submit">Send Message</button>
+    </form>
+
+    <script>
+        // Handle form submission with AJAX
+        $(document).ready(function () {
+            $('#sendMessageForm').on('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Create FormData to handle file uploads
+                let formData = new FormData(this);
+
+                $.ajax({
+                    url: "{% url 'send_private_message' %}", // Django view URL
+                    type: "POST",
+                    data: formData,
+                    processData: false, // Prevent jQuery from processing the data
+                    contentType: false, // Prevent jQuery from setting the content type
+                    success: function (response) {
+                        alert("Message sent successfully!"); // Notify the user
+                        location.reload(); // Reload the page to refresh the inbox
+                    },
+                    error: function (xhr) {
+                        alert("Failed to send message. Please try again.");
+                    },
+                });
+            });
+        });
+    </script>
+{%endblock%}

@@ -1,0 +1,17 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Lesson: {{ lesson.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ lesson.title }}</h2>
+<p><strong>Topic:</strong> {{ lesson.topic }}</p>
+<p><strong>Difficulty:</strong> {{ lesson.difficulty_level }}</p>
+<p>{{ lesson.content }}</p>
+
+{% if lesson.quizzes.exists %}
+    <a href="{% url 'lesson-quiz' lesson.id %}" class="btn btn-primary">Take Quiz</a>
+{% else %}
+<h3>No Questions Available at the moment</h3>
+    <a href="{% url 'lesson-list' %}" class="btn btn-secondary">Go Back</a>
+{% endif %}
+{% endblock %}

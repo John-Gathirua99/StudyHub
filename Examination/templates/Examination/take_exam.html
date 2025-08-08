@@ -1,0 +1,73 @@
+{% extends "content/base.html" %}
+{% block content %}
+{% load custom_filters %}
+
+<style>
+  .exam-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  .exam-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+  }
+
+  .question-block {
+    margin-bottom: 20px;
+  }
+
+  .question-block label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: #444;
+  }
+
+  .question-block textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 14px;
+  }
+
+  .submit-btn {
+    display: block;
+    margin: 30px auto 0;
+    padding: 10px 25px;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .submit-btn:hover {
+    background-color: #1b5e20;
+  }
+</style>
+
+<div class="exam-container">
+  <h2>{{ exam.title }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for question in exam.questions.all %}
+      <div class="question-block">
+        <label>{{ question.text }}</label>
+        <textarea name="answer_{{ question.id }}" rows="3">{% with answer=answers|get_item:question.id %}{% if answer %}{{ answer.answer_text }}{% endif %}{% endwith %}</textarea>
+      </div>
+    {% endfor %}
+    <button type="submit" class="submit-btn">Submit Exam</button>
+  </form>
+</div>
+
+{% endblock %}

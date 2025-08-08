@@ -1,0 +1,48 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Quiz Attempts - {{ quiz.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">📊 Quiz Attempt History: <span class="text-primary">{{ quiz.title }}</span></h2>
+        <a href="{% url 'quiz_attempts' quiz.id %}" class="btn btn-success">Retake Quiz</a>
+    </div>
+
+    {% if attempts %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Attempt</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attempt in attempts %}
+                <tr>
+                    <td>#{{ attempt.attempt_number }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if attempt.score >= 80 %}
+                                bg-success
+                            {% elif attempt.score >= 50 %}
+                                bg-warning
+                            {% else %}
+                                bg-danger
+                            {% endif %}">
+                            {{ attempt.score }}
+                        </span>
+                    </td>
+                    <td>{{ attempt.created_at|date:"M d, Y - H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="alert alert-info">No attempts recorded yet. Try the quiz to get started!</div>
+    {% endif %}
+</div>
+{% endblock %}

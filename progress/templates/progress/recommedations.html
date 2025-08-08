@@ -1,0 +1,50 @@
+{% extends 'content/base.html' %}
+
+{% block content %}
+    <h1>Recommended Learning Materials for You</h1>
+
+    <style>
+        .recommendations {
+            margin-top: 20px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .recommendations li {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            padding: 15px;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+
+        .recommendations li:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .recommendations strong {
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .no-recommendations {
+            font-style: italic;
+            color: #6c757d;
+            margin-top: 15px;
+        }
+    </style>
+
+    {% if recommendations %}
+        <ul class="recommendations">
+            {% for lesson in recommendations %}
+                <li>
+                    <strong>{{ lesson.title }}</strong><br>
+                    {{ lesson.description|default:"No description." }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-recommendations">Great job! You are up to date with your lessons and quizzes.</p>
+    {% endif %}
+{% endblock %}

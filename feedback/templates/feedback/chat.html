@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        /* Inbox container */
+        .inbox-container {
+            width: 90%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .inbox-header {
+            background: #007bff;
+            color: #ffffff;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .inbox-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .inbox-list li {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .inbox-list li:hover {
+            background-color: #f4f4f9;
+        }
+
+        .inbox-list li.active {
+            background-color: #e3fcef;
+        }
+
+        /* Chat container */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #ffffff;
+            width: 90%;
+            max-width: 600px;
+            height: 80vh;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Chat messages area */
+        .messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #fafafa;
+        }
+
+        .messages p {
+            margin: 0;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+
+        .messages p.sender {
+            background-color: #e3fcef;
+            align-self: flex-start;
+            color: #2e7d32;
+        }
+
+        .messages p.receiver {
+            background-color: #e8eaf6;
+            align-self: flex-end;
+            color: #1e88e5;
+        }
+
+        /* Input area */
+        .input-container {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #f4f4f9;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-container input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-container button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat Application</h1>
+
+    <!-- Inbox Section -->
+    <div class="inbox-container">
+        <div class="inbox-header">Inbox</div>
+        <ul class="inbox-list" id="inboxList">
+            <!-- Example conversations (replace with server-side data) -->
+            <li class="active" onclick="openChat('1')">Chat Room 1</li>
+            <li onclick="openChat('2')">Chat Room 2</li>
+            <li onclick="openChat('3')">Chat Room 3</li>
+        </ul>
+    </div>
+    <div class="inbox-container">
+        <div class="inbox-header">Inbox</div>
+        <ul class="inbox-list" id="inboxList">
+            {% for conversation in conversations %}
+            <li onclick="openChat('{{ conversation.id }}')">
+                Chat with {{ conversation.recipient.username }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Chat Section -->
+    <div class="chat-container">
+        <!-- Chat messages area -->
+        <div id="messages" class="messages">
+            {% for message in messages %}
+            <p class="{% if message.sender == user %}sender{% else %}receiver{% endif %}">
+                <strong>{{ message.sender.username }}:</strong> {{ message.content }}
+            </p>
+            {% endfor %}
+        </div>
+
+        <!-- Input area -->
+        <div class="input-container">
+            <input id="messageInput" type="text" placeholder="Type your message..." />
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const roomName = "{{ room_name }}";
+        const chatSocket = new WebSocket(
+            `ws://${window.location.host}/ws/chat/${roomName}/`
+        );
+
+        // Display incoming messages
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            const messages = document.getElementById('messages');
+            const message = document.createElement('p');
+            message.className = data.sender === "{{ user.username }}" ? 'sender' : 'receiver';
+            message.innerHTML = `<strong>${data.sender}:</strong> ${data.message}`;
+            messages.appendChild(message);
+
+            // Scroll to the bottom
+            messages.scrollTop = messages.scrollHeight;
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error("Chat socket closed unexpectedly");
+        };
+
+        // Send message when button is clicked
+        document.getElementById('sendButton').onclick = function(e) {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+
+            if (message.trim() !== "") {
+                chatSocket.send(JSON.stringify({
+                    'message': message,
+                    'sender': "{{ user.username }}",
+                }));
+                messageInput.value = '';
+            }
+        };
+
+        // Allow pressing Enter to send messages
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('sendButton').click();
+            }
+        });
+
+        // Function to open a chat room
+        function openChat(roomId) {
+            // Logic to load chat messages for the selected room
+            console.log(`Opening chat room: ${roomId}`);
+            // Reload or redirect to the chat room (adapt as needed)
+            window.location.href = `/ws/chat/${roomId}/`;
+        }
+    </script>
+</body>
+</html>

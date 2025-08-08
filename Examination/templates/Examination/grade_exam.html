@@ -1,0 +1,88 @@
+{% extends "content/base.html" %}
+{% block content %}
+
+<style>
+  .grade-exam-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #f4f7fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  .grade-exam-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+  }
+
+  .question-block {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #ffffff;
+    border: 1px solid #dce3e8;
+    border-radius: 6px;
+  }
+
+  .question-block strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+  }
+
+  .question-block p {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .question-block label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #2d3436;
+  }
+
+  .question-block input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #b2bec3;
+    border-radius: 4px;
+  }
+
+  .submit-btn {
+    display: block;
+    margin: 30px auto 0;
+    padding: 10px 25px;
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .submit-btn:hover {
+    background-color: #004d40;
+  }
+</style>
+
+<div class="grade-exam-container">
+  <h2>Grade Exam</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for answer in student_exam.answers.all %}
+      <div class="question-block">
+        <strong>{{ answer.question.text }}</strong>
+        <p><strong>Answer:</strong> {{ answer.answer_text }}</p>
+        <label>Marks (out of {{ answer.question.max_marks }}):</label>
+        <input type="number" name="marks_{{ answer.id }}" min="0" max="{{ answer.question.max_marks }}" value="{{ answer.marks_awarded|default_if_none:0 }}">
+      </div>
+    {% endfor %}
+    <button type="submit" class="submit-btn">Submit Grades</button>
+  </form>
+</div>
+
+{% endblock %}

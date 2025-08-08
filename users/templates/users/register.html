@@ -1,0 +1,105 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<style>
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    form p {
+        margin-bottom: 1rem;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 0.6rem;
+        margin-top: 0.3rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    button {
+        background-color: #2c3e50;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    button:hover {
+        background-color: #1a242f;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .errorlist {
+        color: #d9534f;
+        margin-bottom: 0.5rem;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .field-error {
+        margin-bottom: 1rem;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<h2>Create an Account</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        <div class="field-error">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit">Register</button>
+</form>
+
+<p style="margin-top: 1rem;">
+    Already have an account?
+    <a href="{% url 'login' %}">Login here</a>.
+</p>
+{% endblock %}

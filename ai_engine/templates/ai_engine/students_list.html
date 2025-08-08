@@ -1,0 +1,44 @@
+{%extends 'content/base.html'%}
+{%block content%}
+<table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+    <thead>
+      <tr style="background-color: #775757;">
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Grade</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>DOB</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+      <tr>
+        <td>
+          {% if student.user and student.user.id %}
+    <a href="{% url 'user-profile' student.user.id %}">{{ student.user.get_full_name|default:student.user.username }}</a>
+  {% else %}
+    No user info
+  {% endif %}
+  
+            
+          </a>
+        </td>
+        <td>{{ student.user.email }}</td>        
+        <td>{{ profile.grade}}</td>
+        <td>{{ student.address}}</td>
+        <td>{{ student.gender}}</td>
+        <td>{{ student.dob}}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No students found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <button type="button" onclick="window.history.back();" style="margin-top: 20px;">
+    ← Back
+  </button>
+  {%endblock%}

@@ -1,0 +1,123 @@
+{% extends "content/base.html" %}
+{% block content %}
+
+<style>
+  .submitted-exams-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .submitted-exams-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+  }
+
+  .back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .back-btn:hover {
+    background-color: #5a6268;
+  }
+
+  .submitted-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .submitted-table th, .submitted-table td {
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+  }
+
+  .submitted-table th {
+    background-color: #007bff;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+
+  .submitted-table tr:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+
+  .submitted-table a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .submitted-table a:hover {
+    text-decoration: underline;
+  }
+
+  .no-submissions {
+    text-align: center;
+    color: #555;
+    font-style: italic;
+    margin-top: 30px;
+  }
+</style>
+
+<div class="submitted-exams-container">
+  <button type="button" onclick="window.history.back();" class="back-btn">
+    &larr; Back
+  </button>
+
+  <h2>Exams You Have Submitted</h2>
+
+  {% if exam_data %}
+    <table class="submitted-table">
+      <tr>
+        <th>Exam Title</th>
+        <th>Date Submitted</th>
+        <th>Total Marks</th>
+        <th>Status</th>
+        <th>View Details</th>
+      </tr>
+      {% for item in exam_data %}
+        <tr>
+          <td>{{ item.exam.title }}</td>
+          <td>{{ item.student_exam.submitted_at|date:"Y-m-d H:i" }}</td>
+          <td>
+            {% if item.student_exam.graded %}
+              {{ item.student_exam.total_marks }}
+            {% else %}
+              N/A
+            {% endif %}
+          </td>
+          <td>
+            {% if item.student_exam.graded %}
+              Graded
+            {% else %}
+              Pending Grading
+            {% endif %}
+          </td>
+          <td>
+            <a href="{% url 'exam_submitted' item.student_exam.id %}">View Submission</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p class="no-submissions">You have not submitted any exams yet.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

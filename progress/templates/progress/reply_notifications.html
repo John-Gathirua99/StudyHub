@@ -1,0 +1,5 @@
+<form method="post" action="{% url 'reply_notification' notification.id %}">
+  {% csrf_token %}
+  <input type="text" name="reply_message" placeholder="Type your reply..." required style="width: 100%; padding: 8px; margin-top: 8px;"/>
+  <button type="submit" style="margin-top: 6px;">Reply</button>
+</form>

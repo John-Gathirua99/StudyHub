@@ -1,0 +1,112 @@
+{% extends "content/base.html" %}
+{% block content %}
+
+<style>
+  .submission-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fefefe;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .submission-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+
+  .submission-container p {
+    margin: 6px 0;
+    font-size: 15px;
+    color: #333;
+  }
+
+  .submission-container hr {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  .answer-block {
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border-left: 5px solid #007bff;
+  }
+
+  .answer-block p {
+    margin: 5px 0;
+  }
+
+  .answer-block strong {
+    color: #007bff;
+  }
+
+  .back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .back-btn:hover {
+    background-color: #5a6268;
+  }
+</style>
+
+<div class="submission-container">
+  <h2>Exam Submission: {{ exam.title }}</h2>
+
+  <p><strong>Description:</strong> {{ exam.description }}</p>
+  <p><strong>Date Submitted:</strong> {{ student_exam.submitted_at|date:"Y-m-d H:i" }}</p>
+  <p><strong>Status:</strong>
+    {% if student_exam.graded %}
+      Graded
+    {% else %}
+      Pending Grading
+    {% endif %}
+  </p>
+
+  {% if student_exam.graded %}
+    <p><strong>Total Score:</strong> {{ student_exam.total_marks }}</p>
+    {% if student_exam.feedback %}
+      <p><strong>Teacher Feedback:</strong> {{ student_exam.feedback }}</p>
+    {% endif %}
+  {% endif %}
+
+  <hr>
+
+  <h3>Your Answers:</h3>
+
+  {% for answer in answers %}
+    <div class="answer-block">
+      <p><strong>Q{{ forloop.counter }}: {{ answer.question.text }}</strong></p>
+      <p><strong>Your Answer:</strong> {{ answer.answer_text }}</p>
+      {% if answer.file %}
+        <p><strong>File:</strong> <a href="{{ answer.file.url }}">Download</a></p>
+      {% endif %}
+      {% if student_exam.graded %}
+        <p><strong>Score:</strong> {{ answer.marks_awarded }}</p>
+        {% if answer.feedback %}
+          <p><strong>Feedback:</strong> {{ answer.feedback }}</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <button type="button" onclick="window.history.back();" class="back-btn">
+    &larr; Back
+  </button>
+</div>
+
+{% endblock %}

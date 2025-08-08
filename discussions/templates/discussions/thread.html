@@ -1,0 +1,21 @@
+<h2>Conversation with {{ thread.receiver.username }}</h2>
+<div>
+    {% for message in messages %}
+        <div>
+            <p>{{ message.sender.username }}: {{ message.body }}</p>
+            {% if message.image %}
+                <img src="{{ message.image.url }}" alt="Image">
+            {% endif %}
+            {% if message.video %}
+                <video controls>
+                    <source src="{{ message.video.url }}" type="video/mp4">
+                </video>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+</form>

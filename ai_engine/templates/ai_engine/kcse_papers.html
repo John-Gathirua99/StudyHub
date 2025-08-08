@@ -1,0 +1,88 @@
+{% extends 'content/base.html' %}
+
+{% block content %}
+<h2 style="text-align:center; color:#2c3e50;">KCSE Past Papers</h2>
+
+{% if papers %}
+  <ul class="papers-list">
+    {% for paper in papers %}
+      <li>
+        <div class="paper-header">
+          <strong>{{ paper.subject }} {{ paper.year }} {{ paper.paper_type }}</strong>
+        </div>
+        {% if paper.description %}
+          <div class="paper-description">
+            <em>{{ paper.description }}</em>
+          </div>
+        {% endif %}
+        <a href="{{ paper.file.url }}" download>📥 Download</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="no-papers-message">No past papers available at the moment.</p>
+{% endif %}
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+
+  .papers-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 30px auto;
+    width: 80%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .papers-list li {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .papers-list li:last-child {
+    border-bottom: none;
+  }
+
+  .paper-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+  }
+
+  .paper-description {
+    font-style: italic;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+  }
+
+  .papers-list a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #3498db;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .papers-list a:hover {
+    background-color: #2980b9;
+  }
+
+  .no-papers-message {
+    text-align: center;
+    color: #e74c3c;
+    font-size: 18px;
+  }
+</style>
+{% endblock %}

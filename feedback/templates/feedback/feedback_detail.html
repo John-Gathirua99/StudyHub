@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+<h2>Feedback</h2>
+<p>{{ feedback.comments }}</p>
+<p>Score: {{ feedback.score }}</p>
+{% endblock %}

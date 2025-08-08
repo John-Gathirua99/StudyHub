@@ -1,0 +1,31 @@
+{% extends "content/base.html" %}
+{% block content %}
+<button type="button" onclick="window.history.back();" class="btn btn-secondary">
+    &larr; Back
+  </button>
+  <h2>Students Who Attempted: {{ exam.title }}</h2>
+  <table border="1">
+    <tr>
+      <th>Name</th>
+      <th>Profile</th>
+      <th>Message</th>
+      <th>Send File</th>
+    </tr>
+    {% for student in students %}
+      <tr>
+        <td>{{ student.full_name|default:student.user.username }}</td>
+        <td>
+          <a href="{% url 'user-profile' student.id %}">View Profile</a>
+        </td>
+        <td>
+          <a href="{%url 'send_private_message'%}?to={{ student.user.id }}">Message</a>
+        </td>
+        <td>
+            <a href="{% url 'send_exam_file' exam.id student.id %}">Send File</a>
+          </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">No students have attempted this exam yet.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

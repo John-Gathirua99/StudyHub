@@ -1,0 +1,67 @@
+{% extends "content/base.html" %}
+{% block content %}
+
+<style>
+  .available-exams-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .available-exams-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+  }
+
+  .exam-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .exam-list li {
+    background-color: #ffffff;
+    border: 1px solid #dcdde1;
+    border-radius: 6px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .exam-list a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+
+  .exam-list a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="available-exams-container">
+  <h2>Available Exams</h2>
+ 
+    <a href="{% url 'submitted_exam_list' %}" class="btn btn-primary">
+      View Submitted Exams
+    </a>
+  <ul class="exam-list">
+    {% for exam in exams %}
+    
+      <li>
+        <span>{{ exam.title }}</span>
+        <a href="{% url 'take_exam' exam.id %}">Take Exam</a>
+      </li>
+    {% empty %}
+      <li>No exams available at the moment.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "content/base.html" %}
+{% block content %}
+
+<style>
+  .submitted-exams-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  .submitted-exams-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .exam-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .exam-list li {
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .exam-list li span {
+    flex-grow: 1;
+  }
+
+  .exam-list a {
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: bold;
+  }
+
+  .exam-list a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="submitted-exams-container">
+  <h2>Submitted Exams</h2>
+  <ul class="exam-list">
+    {% for se in exams %}
+      <li>
+        <span>Student: {{ se.student }} | Exam: {{ se.exam.title }}</span>
+        <a href="{% url 'grade_exam' se.id %}">Grade</a>
+      </li>
+    {% empty %}
+      <li>No submitted exams yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

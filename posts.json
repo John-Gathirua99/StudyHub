@@ -1,0 +1,246 @@
+[
+    {
+      "lesson": {
+        "title": "Photosynthesis",
+        "content": "This lesson explains the process of photosynthesis in plants.",
+        "difficulty_level": "Easy",
+        "topic": "Biology"
+      },
+      "quizzes": [
+        {
+          "question": "What gas is used in photosynthesis?",
+          "option_a": "Oxygen",
+          "option_b": "Nitrogen",
+          "option_c": "Carbon Dioxide",
+          "option_d": "Hydrogen",
+          "correct_option": "C"
+        },
+        {
+          "question": "What is the main product of photosynthesis?",
+          "option_a": "Water",
+          "option_b": "Glucose",
+          "option_c": "Oxygen",
+          "option_d": "Carbon dioxide",
+          "correct_option": "B"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "Newton's Laws",
+        "content": "Covers the three laws of motion formulated by Isaac Newton.",
+        "difficulty_level": "Medium",
+        "topic": "Physics"
+      },
+      "quizzes": [
+        {
+          "question": "Which law states that for every action there is an equal and opposite reaction?",
+          "option_a": "First",
+          "option_b": "Second",
+          "option_c": "Third",
+          "option_d": "None",
+          "correct_option": "C"
+        },
+        {
+          "question": "Force = mass x ?",
+          "option_a": "Weight",
+          "option_b": "Velocity",
+          "option_c": "Acceleration",
+          "option_d": "Energy",
+          "correct_option": "C"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "The Water Cycle",
+        "content": "Describes the continuous movement of water on, above and below the surface of the Earth.",
+        "difficulty_level": "Easy",
+        "topic": "Geography"
+      },
+      "quizzes": [
+        {
+          "question": "Which process turns liquid water into vapor?",
+          "option_a": "Condensation",
+          "option_b": "Evaporation",
+          "option_c": "Precipitation",
+          "option_d": "Freezing",
+          "correct_option": "B"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "Fractions and Decimals",
+        "content": "An introduction to converting between fractions and decimals.",
+        "difficulty_level": "Easy",
+        "topic": "Mathematics"
+      },
+      "quizzes": [
+        {
+          "question": "What is 0.25 as a fraction?",
+          "option_a": "1/4",
+          "option_b": "1/2",
+          "option_c": "1/3",
+          "option_d": "3/4",
+          "correct_option": "A"
+        },
+        {
+          "question": "Which is greater: 0.75 or 3/4?",
+          "option_a": "0.75",
+          "option_b": "3/4",
+          "option_c": "Both are equal",
+          "option_d": "Cannot say",
+          "correct_option": "C"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "Continents and Oceans",
+        "content": "Learn about the 7 continents and 5 oceans of the world.",
+        "difficulty_level": "Easy",
+        "topic": "Geography"
+      },
+      "quizzes": [
+        {
+          "question": "Which is the largest continent?",
+          "option_a": "Africa",
+          "option_b": "Asia",
+          "option_c": "Europe",
+          "option_d": "North America",
+          "correct_option": "B"
+        },
+        {
+          "question": "How many oceans are there?",
+          "option_a": "3",
+          "option_b": "4",
+          "option_c": "5",
+          "option_d": "6",
+          "correct_option": "C"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "Human Digestive System",
+        "content": "Covers parts and function of the digestive system in humans.",
+        "difficulty_level": "Medium",
+        "topic": "Biology"
+      },
+      "quizzes": [
+        {
+          "question": "Where does digestion begin?",
+          "option_a": "Stomach",
+          "option_b": "Mouth",
+          "option_c": "Small intestine",
+          "option_d": "Esophagus",
+          "correct_option": "B"
+        },
+        {
+          "question": "Which organ absorbs nutrients?",
+          "option_a": "Large intestine",
+          "option_b": "Stomach",
+          "option_c": "Small intestine",
+          "option_d": "Liver",
+          "correct_option": "C"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "Electric Circuits",
+        "content": "Basics of electrical circuits, components and current flow.",
+        "difficulty_level": "Medium",
+        "topic": "Physics"
+      },
+      "quizzes": [
+        {
+          "question": "What is used to complete an electric circuit?",
+          "option_a": "Bulb",
+          "option_b": "Battery",
+          "option_c": "Switch",
+          "option_d": "All of the above",
+          "correct_option": "D"
+        },
+        {
+          "question": "What flows in a circuit?",
+          "option_a": "Light",
+          "option_b": "Sound",
+          "option_c": "Electric current",
+          "option_d": "Heat",
+          "correct_option": "C"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "Simple Machines",
+        "content": "Explains six types of simple machines and how they make work easier.",
+        "difficulty_level": "Easy",
+        "topic": "Physics"
+      },
+      "quizzes": [
+        {
+          "question": "Which of the following is a simple machine?",
+          "option_a": "Pulley",
+          "option_b": "Motor",
+          "option_c": "Engine",
+          "option_d": "Computer",
+          "correct_option": "A"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "Introduction to Programming",
+        "content": "Basic programming concepts using Python.",
+        "difficulty_level": "Medium",
+        "topic": "Computer Science"
+      },
+      "quizzes": [
+        {
+          "question": "What is a variable in Python?",
+          "option_a": "A fixed number",
+          "option_b": "A container for storing data",
+          "option_c": "A mathematical symbol",
+          "option_d": "A type of function",
+          "correct_option": "B"
+        },
+        {
+          "question": "Which keyword is used to define a function?",
+          "option_a": "func",
+          "option_b": "def",
+          "option_c": "define",
+          "option_d": "function",
+          "correct_option": "B"
+        }
+      ]
+    },
+    {
+      "lesson": {
+        "title": "Introduction to HTML",
+        "content": "Learn the basics of HTML and webpage structure.",
+        "difficulty_level": "Easy",
+        "topic": "Computer Science"
+      },
+      "quizzes": [
+        {
+          "question": "What does HTML stand for?",
+          "option_a": "Hyper Text Makeup Language",
+          "option_b": "Hyperlinks and Text Markup Language",
+          "option_c": "Hyper Text Markup Language",
+          "option_d": "Home Tool Markup Language",
+          "correct_option": "C"
+        },
+        {
+          "question": "Which tag is used for headings in HTML?",
+          "option_a": "<head>",
+          "option_b": "<title>",
+          "option_c": "<h1> to <h6>",
+          "option_d": "<header>",
+          "correct_option": "C"
+        }
+      ]
+    }
+  ]

@@ -1,0 +1,30 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Your Notifications{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 40px auto; padding: 20px;">
+    <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">🔔 Your Notifications</h2>
+
+    {% if notifications %}
+    <ul style="list-style: none; padding: 0; margin: 0;">
+        {% for note in notifications %}
+        <li style="background-color: #ffffff; border-left: 4px solid #3498db; margin-bottom: 16px; padding: 16px 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: transform 0.2s;">
+            <p style="margin: 0; font-size: 16px; color: #333;">
+                {{ note.message }}
+                {% if note.link %}
+                    <a href="{% url 'shared_resources' %}" target="_blank" rel="noopener"
+                       style="margin-left: 10px; font-size: 14px; color: #2980b9; text-decoration: none;">
+                        View ↗
+                    </a>
+                {% endif %}
+            </p>
+            <small style="color: #999;"><i class="fas fa-clock"></i> {{ note.created_at|date:"M d, Y H:i" }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p style="text-align: center; color: #888; font-style: italic;">You have no notifications.</p>
+    {% endif %}
+</div>
+{% endblock %}

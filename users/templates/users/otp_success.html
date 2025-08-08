@@ -1,0 +1,44 @@
+{%extends 'content/base.html'%}
+
+{%block content%}
+  <title>OTP Verification Successful</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f0f8ff;
+    }
+    .success-message {
+      color: #2e7d32;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .next-steps {
+      font-size: 16px;
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 25px;
+      background-color: #1976d2;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+    a.button:hover {
+      background-color: #115293;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-message">
+    🎉 Your OTP has been successfully verified!
+  </div>
+  <div class="next-steps">
+    You can now proceed to <a href="{% url 'login' %}">log in</a> or continue using the site.
+  </div>
+  <a href="{% url 'home' %}" class="button">Go to Home</a>
+{%endblock%}

@@ -1,0 +1,134 @@
+{% extends 'content/base.html' %}
+
+{% block title %}Educational Content{% endblock %}
+
+{% block content %}
+<!-- Mini Top Navbar -->
+<div class="mini-navbar">
+    <a href="#videos">🎥 Videos</a>
+    <a href="#files">📂 Files</a>
+    <a href="#photos">🖼️ Photos</a>
+</div>
+
+<div style="max-width: 1000px; margin: auto;">
+    <h2 style="text-align: center; margin-bottom: 2rem;">📚 Educational Content</h2>
+
+    <!-- Videos Section -->
+    <h3 id="videos" style="margin-top: 2rem; border-bottom: 2px solid #ccc; padding-bottom: 0.5rem;">🎥 Videos</h3>
+    <ul style="list-style: none; padding: 0;">
+        {% for item in content %}
+            {% if item.content_type == 'video' %}
+            <li style="margin-bottom: 1.5rem; background-color: #f9f9f9; padding: 1rem; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
+                <h4 style="margin-bottom: 0.5rem;">{{ item.title }}</h4>
+                <p>{{ item.description }}</p>
+                <a href="{{ item.video_url }}" target="_blank" style="color: #2980b9; text-decoration: underline;">▶️ Watch Video</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% if not content|length %}
+        <p style="color: #888;">No videos available.</p>
+    {% endif %}
+
+    <!-- Files Section -->
+    <h3 id="files" style="margin-top: 3rem; border-bottom: 2px solid #ccc; padding-bottom: 0.5rem;">📂 Files</h3>
+    <ul style="list-style: none; padding: 0;">
+        {% for item in content %}
+            {% if item.content_type == 'file' %}
+            <li style="margin-bottom: 1.5rem; background-color: #f9f9f9; padding: 1rem; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
+                <h4 style="margin-bottom: 0.5rem;">{{ item.title }}</h4>
+                <p>{{ item.description }}</p>
+                {% if item.file %}
+                    <a href="{{ item.file.url }}" download style="color: #27ae60; text-decoration: underline;">⬇️ Download File</a>
+                {% else %}
+                    <p style="color: #999;">No file available for download.</p>
+                {% endif %}
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% if not content|length %}
+        <p style="color: #888;">No files available.</p>
+    {% endif %}
+
+    <!-- Photos Section -->
+    <h3 id="photos" style="margin-top: 3rem; border-bottom: 2px solid #ccc; padding-bottom: 0.5rem;">🖼️ Photos</h3>
+    <ul style="list-style: none; padding: 0;">
+        {% for item in content %}
+            {% if item.content_type == 'photo' %}
+            <li style="margin-bottom: 1.5rem; background-color: #f9f9f9; padding: 1rem; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
+                <h4 style="margin-bottom: 0.5rem;">{{ item.title }}</h4>
+                <p>{{ item.description }}</p>
+                {% if item.photo %}
+                    <img src="{{ item.photo.url }}" alt="{{ item.title }}" style="max-width: 100%; border-radius: 4px;">
+                {% else %}
+                    <p style="color: #999;">No photo available.</p>
+                {% endif %}
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% if not content|length %}
+        <p style="color: #888;">No photos available.</p>
+    {% endif %}
+</div>
+<style>
+    /* Ensure images fit within their containers and maintain aspect ratio */
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    object-fit: cover; /* Ensures images cover the area without distortion */
+    object-position: center; /* Centers the image within its container */
+}
+
+    /* Mini Top Navbar Styles */
+.mini-navbar {
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.mini-navbar {
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.mini-navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.mini-navbar a:hover {
+    background-color: #34495e;
+}
+
+/* Section Heading Styles */
+h3 {
+    margin-top: 3rem;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.5rem;
+}
+
+</style>
+{% endblock %}

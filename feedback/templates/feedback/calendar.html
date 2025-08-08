@@ -1,0 +1,36 @@
+{%extends 'content/base.html'%}
+    <title>Calendar</title>
+   {%block content%} 
+    
+<title>Calendar</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            height: 50px;
+        }
+        .today {
+            background-color: #f9c2ff;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calendar for {{ month }}/{{ year }}</h1>
+    <div>
+        {{ calendar|safe }}
+    </div>
+{%endblock%}
